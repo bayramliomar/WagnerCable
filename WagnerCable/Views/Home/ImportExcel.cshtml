@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImportExcel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    @using (Html.BeginForm("ImportExcel", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row" style="margin-top:5%">
+            <div class="container">
+                <form>
+                    <div class="custom-file col-md-6">
+
+                        <div class="input-group d-inline-flex input-group-md">
+                            <div class="custom-file">
+                                @if (ViewBag.Message != null)
+                                {
+                                    <input type="file" value="@ViewBag.Message" class="custom-file-input" name="PostedFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="inputGroupFile04"> }
+                                else
+                                {
+                                    <input type="file" value="@String.Format("Offer_{0}_{1}_{2}",@DateTime.Now.Year,@DateTime.Now.Month,@DateTime.Now.Day)" class="custom-file-input" name="PostedFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="inputGroupFile04">}
+                                <label class="custom-file-label" for="inputGroupFile04"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>Select File</label>
+                            </div>
+                            <div class="input-group-append" style="padding-left:10px;">
+                                <button class="btn btn-sm btn-primary" id="upload" type="submit">Upload</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <p style="color:green;margin-left:2%;display:inline-block">@ViewBag.Message</p>}
+                    <p style="color:red;display:none;margin-left:2%;" id="ntfy">İşleminiz Gerçekleşiyor Dosya Yüklenmesini Bekleyiniz...</p>
+                </form>
+
+            </div>
+
+        </div>}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).on("click", "#upload", function () {
+            $('#ntfy').css('display', 'block');
+        });
+    </script>
+</body>
+</html>
